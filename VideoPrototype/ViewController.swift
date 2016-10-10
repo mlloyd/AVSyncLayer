@@ -42,26 +42,21 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        viewContainer.addSubview(videoPlayerViewController.view)
-//        self.addChildViewController(videoPlayerViewController)
-//        videoPlayerViewController.view.equalEdges(view: viewContainer)
-        
-        
-        
         player = AVPlayer(url: streamURL)
-//        videoPlayerViewController.player = player
-//        videoPlayerViewController.videoGravity = AVLayerVideoGravityResizeAspectFill
-//        videoPlayerViewController.contentOverlayView?.layer.addSublayer(self.syncLayer)
         
-        playerLayer = AVPlayerLayer(player: player)
-        playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+        viewContainer.addSubview(videoPlayerViewController.view)
+        self.addChildViewController(videoPlayerViewController)
+        videoPlayerViewController.view.equalEdges(view: viewContainer)
+        videoPlayerViewController.player = player
+        videoPlayerViewController.videoGravity = AVLayerVideoGravityResizeAspectFill
+        videoPlayerViewController.contentOverlayView?.addSubview(playerView)
+        playerView.equalEdges(view: videoPlayerViewController.contentOverlayView!)
         
-        
-        viewContainer.layer.addSublayer(playerLayer)
-        
-        viewContainer.addSubview(playerView)
-        playerView.equalEdges(view: viewContainer)
-        
+//        playerLayer = AVPlayerLayer(player: player)
+//        playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+//        viewContainer.layer.addSublayer(playerLayer)
+//        viewContainer.addSubview(playerView)
+//        playerView.equalEdges(view: viewContainer)
         
         syncLayer.playerItem = player.currentItem
         playerView.syncLayer = syncLayer
@@ -78,9 +73,8 @@ class ViewController: UIViewController {
         player.play()
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        self.playerLayer.frame = self.viewContainer.layer.bounds
-    }
+//    override func viewDidLayoutSubviews() {
+//        super.viewDidLayoutSubviews()
+//        self.playerLayer.frame = self.viewContainer.layer.bounds
+//    }
 }
